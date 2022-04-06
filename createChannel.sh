@@ -52,7 +52,6 @@ joinChannel(){
     setGlobalsForPeer0Org1
     peer channel join -b ./channel-artifacts/$CHANNEL_NAME.block
     
-    
     setGlobalsForPeer0Org2
     peer channel join -b ./channel-artifacts/$CHANNEL_NAME.block
     

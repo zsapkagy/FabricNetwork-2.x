@@ -1,10 +1,10 @@
-version: '2'
+version: "2"
 
 networks:
   test:
+    name: artifacts_test
 
 services:
-
   ca_org1:
     image: hyperledger/fabric-ca
     environment:

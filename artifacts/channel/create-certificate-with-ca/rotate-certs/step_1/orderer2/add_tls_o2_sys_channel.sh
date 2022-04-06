@@ -19,7 +19,7 @@ setGlobalsForOrderer() {
 addTLSToSystemChannelOrderer2() {
     setGlobalsForOrderer
 
-    # peer channel fetch config config_block.pb -o localhost:7050 -c $SYSTEM_CHANNEL_NAME --tls --cafile $ORDERER_CA --tlsHandshakeTimeShift 200h
+    # peer channel fetch config config_block.pb -o localhost:7050 -c $SYSTEM_CHANNEL_NAME --tls --cafile $ORDERER_CA --tlsHandshakeTimeShift 400h
 
     # configtxlator proto_decode --input config_block.pb --type common.Block | jq .data.data[0].payload.data.config >config.json
     # cp config.json modified_config.json
@@ -38,7 +38,7 @@ addTLSToSystemChannelOrderer2() {
     echo "{\"payload\":{\"header\":{\"channel_header\":{\"channel_id\":\"sys-channel\", \"type\":2}},\"data\":{\"config_update\":"$(cat config_update.json)"}}}" | jq . >config_update_in_envelope.json
     configtxlator proto_encode --input config_update_in_envelope.json --type common.Envelope --output config_update_in_envelope.pb
     
-    peer channel update -f config_update_in_envelope.pb -c $SYSTEM_CHANNEL_NAME -o localhost:7050 --tls true --cafile $ORDERER_CA --tlsHandshakeTimeShift 200h
+    peer channel update -f config_update_in_envelope.pb -c $SYSTEM_CHANNEL_NAME -o localhost:7050 --tls true --cafile $ORDERER_CA --tlsHandshakeTimeShift 400h
 
     # --------------------------------------------------------------------------
 

@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
   },
   "keywords": [],
   "author": "",
@@ -26,6 +27,7 @@
     "jsonwebtoken": "^8.5.1",
     "log4js": "^6.2.0",
     "npm": "^6.14.6",
-    "save": "^2.4.0"
+    "save": "^2.4.0",
+    "nodemon": "2.0.15"
   }
 }

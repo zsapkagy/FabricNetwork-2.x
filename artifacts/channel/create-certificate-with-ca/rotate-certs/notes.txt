@@ -28,7 +28,7 @@ Part II
     5) We have to make configuration update to change orderer tls certificate. In current network we have one Application channel, one system channel.
          We need to do this configuration update for both channel. We can do configuration update for one orderer at a time.
          In current network we have 3 orderer, it means we need to do 6 configuration update.
-    6) Make configuration update for System channel first and hen application channel. Once successfully done, replace newly created tls certificate and restart orderer 
+    6) Make configuration update for System channel first and then application channel. Once successfully done, replace newly created tls certificate and restart orderer 
     7) Do same above procedure for all orderer
     8) Recreate connection profile and restart api server.
     9) We need to enroll new user to invoke transaction.
