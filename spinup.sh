@@ -36,13 +36,13 @@ sed -i 's/8760h/720h/g' fabric-ca/org3/fabric-ca-server-config.yaml
 
 sudo timedatectl set-ntp yes
 
+###########
 # RENEW ==>
 
 # CAs UP
 # artifacts/channel/create-certificate-with-ca/renew-certs.sh
-# Add orderer ENVs
 
-# Replace MSP
+### MSP Update
 mv ../crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/msp ../crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/orig_msp
 cp -r ../new-certs/ordererOrganizations/example.com/orderers/orderer.example.com/msp ../crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/msp
 
@@ -62,26 +62,30 @@ cp -r ../new-certs/peerOrganizations/org2.example.com/peers/peer0.org2.example.c
 mv ../crypto-config/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/msp ../crypto-config/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/orig_msp
 cp -r ../new-certs/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/msp ../crypto-config/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/msp
 
+# Add orderer Timeshift ENVs
 # Start orderes and peers
 
 ### TLS update
-# Do this for every Ordere 1 by 1
+# Do this for every Orderer 1 by 1
 # UPDATE the TLS in the channel's config blocks
-### system channel artifacts/channel/create-certificate-with-ca/rotate-certs/step_1/orderer1/add_tls_o1_sys_channel.sh
-### application channel artifacts/channel/create-certificate-with-ca/rotate-certs/step_2/orderer1/add_tls_o1_app_channel.sh
+### SYSTEM channel artifacts/channel/create-certificate-with-ca/rotate-certs/step_1/orderer1/add_tls_o1_sys_channel.sh
+### APPLICATION channel artifacts/channel/create-certificate-with-ca/rotate-certs/step_2/orderer1/add_tls_o1_app_channel.sh
 # Replace the OLD TLS with the new-cert/.../tls
+# Orderer1
 mv ../crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/tls ../crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/orig_tls
 cp -r ../new-certs/ordererOrganizations/example.com/orderers/orderer.example.com/tls ../crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/tls
 # Restart the orderer
 docker restart orderer.example.com # Restart the orderer
 docker logs orderer.example.com -f # check the logs for the orderer
 
+# Orderer2
 mv ../crypto-config/ordererOrganizations/example.com/orderers/orderer2.example.com/tls ../crypto-config/ordererOrganizations/example.com/orderers/orderer2.example.com/orig_tls
 cp -r ../new-certs/ordererOrganizations/example.com/orderers/orderer2.example.com/tls ../crypto-config/ordererOrganizations/example.com/orderers/orderer2.example.com/tls
 # Restart the orderer
 docker restart orderer2.example.com # Restart the orderer
 docker logs orderer2.example.com -f # check the logs for the orderer
 
+# Orderer3
 mv ../crypto-config/ordererOrganizations/example.com/orderers/orderer3.example.com/tls ../crypto-config/ordererOrganizations/example.com/orderers/orderer3.example.com/orig_tls
 cp -r ../new-certs/ordererOrganizations/example.com/orderers/orderer3.example.com/tls ../crypto-config/ordererOrganizations/example.com/orderers/orderer3.example.com/tls
 # Restart the orderer
@@ -98,7 +102,7 @@ cp -r ../new-certs/peerOrganizations/org2.example.com/peers/peer0.org2.example.c
 mv ../crypto-config/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls ../crypto-config/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/orig_tls
 cp -r ../new-certs/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls ../crypto-config/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls
 
-# Remove env from the orderer docker-compositions
+# Remove Timeshift ENVs from the orderer docker-compositions
 
 # restart orderers and peers
 # regenerate api connection profile
